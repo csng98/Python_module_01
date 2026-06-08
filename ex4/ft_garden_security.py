@@ -1,4 +1,4 @@
-class SecurePlant:
+class Plant:
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self._height = 0
@@ -36,7 +36,7 @@ class SecurePlant:
 
 if __name__ == "__main__":
     print("=== Garden Security System ===")
-    plant1 = SecurePlant("Rose", 25, 30)
+    plant1 = Plant("Rose", 25, 30)
     print()
     plant1.set_height(-5)
     plant1.set_age(-5)

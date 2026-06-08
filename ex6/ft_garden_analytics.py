@@ -1,5 +1,4 @@
 class Plant:
-    # --- Nested Class for Statistics ---
     class PlantStats:
         def __init__(self) -> None:
             self._grow_calls = 0
@@ -16,7 +15,8 @@ class Plant:
             self._show_calls += 1
 
         def display(self) -> None:
-            print(f"Stats: {self._grow_calls} grow, {self._age_calls} age, {self._show_calls} show")
+            print(f"Stats: {self._grow_calls} grow, "
+                  f"{self._age_calls} age, {self._show_calls} show")
 
     def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
@@ -24,20 +24,16 @@ class Plant:
         self._age = 0
         self.set_height(height)
         self.set_age(age)
-        # Initialize internal tracking system
         self._stats = self.PlantStats()
 
-    # --- Static and Class Methods ---
     @staticmethod
     def is_older_than_year(days: int) -> bool:
         return days > 365
 
     @classmethod
     def create_anonymous(cls):
-        # Creates an "Unknown plant" with defaults
         return cls("Unknown plant", 0.0, 0)
 
-    # --- Getters, Setters, and Growth ---
     def get_height(self) -> float:
         return self._height
 
@@ -62,7 +58,7 @@ class Plant:
             self._age += age_added
         self._stats.increment_age()
 
-    def show_info(self) -> None:
+    def show(self) -> None:
         self._stats.increment_show()
 
 
@@ -75,29 +71,34 @@ class Flower(Plant):
     def bloom(self) -> None:
         self._is_blooming = True
 
-    def show_info(self) -> None:
-        super().show_info()
-        print(f"{self.name}: {self.get_height():.1f}cm, {self.get_age()} days old")
+    def show(self) -> None:
+        super().show()
+        print(f"{self.name.capitalize()}: {self.get_height():.1f}cm, "
+              f"{self.get_age()} days old")
         print(f"Color: {self.color}")
         if self._is_blooming:
-            print(f"{self.name} is blooming beautifully!")
+            print(f"{self.name.capitalize()} is blooming beautifully!")
         else:
-            print(f"{self.name} has not bloomed yet")
+            print(f"{self.name.capitalize()} has not bloomed yet")
 
 
 class Tree(Plant):
-    def __init__(self, name: str, height: float, age: int, trunk_diameter: float) -> None:
+    def __init__(self, name: str, height: float,
+                 age: int, trunk_diameter: float) -> None:
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
         self._shade_calls = 0  # Trees need extra stats tracking
 
     def produce_shade(self) -> None:
         self._shade_calls += 1
-        print(f"Tree {self.name} now produces a shade of {self.get_height():.1f}cm long and {self.trunk_diameter:.1f}cm wide.")
+        print(f"Tree {self.name.capitalize()} now produces a shade of "
+              f"{self.get_height():.1f}cm long and "
+              f"{self.trunk_diameter:.1f}cm wide.")
 
-    def show_info(self) -> None:
-        super().show_info()
-        print(f"{self.name}: {self.get_height():.1f}cm, {self.get_age()} days old")
+    def show(self) -> None:
+        super().show()
+        print(f"{self.name.capitalize()}: {self.get_height():.1f}cm, "
+              f"{self.get_age()} days old")
         print(f"Trunk diameter: {self.trunk_diameter:.1f}cm")
 
 
@@ -109,68 +110,55 @@ class Seed(Flower):
 
     def bloom(self) -> None:
         super().bloom()
-        self.seeds = 42  # Populates seeds once it blooms
+        self.seeds = 42
 
-    def show_info(self) -> None:
-        # Reuses Flower's implementation but injects the seeds count display
-        super().show_info()
+    def show(self) -> None:
+        super().show()
         print(f"Seeds: {self.seeds}")
 
 
-# --- Unique Standalone Function ---
 def display_plant_analytics(plant: Plant) -> None:
-    print(f"[statistics for {plant.name}]")
+    print(f"[statistics for {plant.name.capitalize()}]")
     plant._stats.display()
-    # Check if it has the extra tree statistic attribute
     if hasattr(plant, '_shade_calls'):
         print(f"{plant._shade_calls} shade")
 
 
-# --- Main Execution matching the example scenario ---
 if __name__ == "__main__":
     print("=== Garden statistics ===")
-    
-    # 1. Static Method Check
     print("=== Check year-old")
     print(f"Is 30 days more than a year? -> {Plant.is_older_than_year(30)}")
     print(f"Is 400 days more than a year? -> {Plant.is_older_than_year(400)}")
-    
-    # 2. Flower Execution
+    print()
     print("=== Flower")
-    rose = Flower("Rose", 15.0, 10, "red")
-    rose.show_info()
+    rose = Flower("rose", 15.0, 10, "red")
+    rose.show()
     display_plant_analytics(rose)
-    
     print("[asking the rose to grow and bloom]")
     rose.grow(8.0)
     rose.bloom()
-    rose.show_info()
+    rose.show()
     display_plant_analytics(rose)
-    
-    # 3. Tree Execution
+    print()
     print("=== Tree")
-    oak = Tree("Oak", 200.0, 365, 5.0)
-    oak.show_info()
+    oak = Tree("oak", 200.0, 365, 5.0)
+    oak.show()
     display_plant_analytics(oak)
-    
     print("[asking the oak to produce shade]")
     oak.produce_shade()
     display_plant_analytics(oak)
-    
-    # 4. Seed Execution
+    print()
     print("=== Seed")
-    sunflower = Seed("Sunflower", 80.0, 45, "yellow")
-    sunflower.show_info()
-    
+    sunflower = Seed("sunflower", 80.0, 45, "yellow")
+    sunflower.show()
     print("[make sunflower grow, age and bloom]")
     sunflower.grow(30.0)
     sunflower.age(20)
     sunflower.bloom()
-    sunflower.show_info()
+    sunflower.show()
     display_plant_analytics(sunflower)
-    
-    # 5. Anonymous Plant Execution
+    print()
     print("=== Anonymous")
     anon_plant = Plant.create_anonymous()
-    anon_plant.show_info()
+    anon_plant.show()
     display_plant_analytics(anon_plant)

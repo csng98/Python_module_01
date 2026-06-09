@@ -17,20 +17,3 @@ This project models an interconnected community garden network, progressing from
 * **Ex4: Garden Security** — Implementing structural encapsulation (protected attributes) and strict data validation.
 * **Ex5: Specialized Plant Types** — Utilizing polymorphism and classical inheritance (`super()`) to model custom types (`Flower`, `Tree`, `Vegetable`).
 * **Ex6: Garden Analytics** — Designing advanced internal metrics tracking via nested classes, static methods, and class methods.
-
-📂 code-cultivation/
-├── 📁 ex0/
-│   └── 📄 ft_garden_intro.py
-├── 📁 ex1/
-│   └── 📄 ft_garden_data.py
-├── 📁 ex2/
-│   └── 📄 ft_plant_growth.py
-├── 📁 ex3/
-│   └── 📄 ft_plant_factory.py
-├── 📁 ex4/
-│   └── 📄 ft_garden_security.py
-├── 📁 ex5/
-│   └── 📄 ft_plant_types.py
-├── 📁 ex6/
-│   └── 📄 ft_garden_analytics.py
-└── 📄 README.md
